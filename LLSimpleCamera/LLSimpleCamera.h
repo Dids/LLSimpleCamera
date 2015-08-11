@@ -24,7 +24,6 @@ typedef enum : NSUInteger {
 extern NSString *const LLSimpleCameraErrorDomain;
 typedef enum : NSUInteger {
     LLSimpleCameraErrorCodeCameraPermission = 10,
-    LLSimpleCameraErrorCodeMicrophonePermission = 11,
     LLSimpleCameraErrorCodeSession = 12,
     LLSimpleCameraErrorCodeVideoNotEnabled = 13
 } LLSimpleCameraErrorCode;
@@ -88,11 +87,6 @@ typedef enum : NSUInteger {
  * Use this method to request camera permission before initalizing LLSimpleCamera.
  */
 + (void)requestCameraPermission:(void (^)(BOOL granted))completionBlock;
-
-/**
- * Use this method to request microphone permission before initalizing LLSimpleCamera.
- */
-+ (void)requestMicrophonePermission:(void (^)(BOOL granted))completionBlock;
 
 /**
  * Returns an instance of LLSimpleCamera with the given quality.
