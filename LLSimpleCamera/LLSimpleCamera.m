@@ -138,25 +138,7 @@ NSString *const LLSimpleCameraErrorDomain = @"LLSimpleCameraErrorDomain";
 - (void)start {
     [LLSimpleCamera requestCameraPermission:^(BOOL granted) {
         if(granted) {
-            // request microphone permission if video is enabled
-            if(self.videoEnabled) {
-                [LLSimpleCamera requestMicrophonePermission:^(BOOL granted) {
-                    if(granted) {
-                        [self initialize];
-                    }
-                    else {
-                        NSError *error = [NSError errorWithDomain:LLSimpleCameraErrorDomain
-                                                             code:LLSimpleCameraErrorCodeMicrophonePermission
-                                                         userInfo:nil];
-                        if(self.onError) {
-                            self.onError(self, error);
-                        }
-                    }
-                }];
-            }
-            else {
-                [self initialize];
-            }
+            [self initialize];
         }
         else {
             NSError *error = [NSError errorWithDomain:LLSimpleCameraErrorDomain
@@ -738,19 +720,6 @@ NSString *const LLSimpleCameraErrorDomain = @"LLSimpleCameraErrorDomain";
         completionBlock(YES);
     }
     
-}
-
-+ (void)requestMicrophonePermission:(void (^)(BOOL granted))completionBlock {
-    if([[AVAudioSession sharedInstance] respondsToSelector:@selector(requestRecordPermission:)]) {
-        [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
-            // return to main thread
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if(completionBlock) {
-                    completionBlock(granted);
-                }
-            });
-        }];
-    }
 }
 
 @end
