@@ -70,8 +70,7 @@
         NSLog(@"Camera error: %@", error);
         
         if([error.domain isEqualToString:LLSimpleCameraErrorDomain]) {
-            if(error.code == LLSimpleCameraErrorCodeCameraPermission ||
-               error.code == LLSimpleCameraErrorCodeMicrophonePermission) {
+            if(error.code == LLSimpleCameraErrorCodeCameraPermission) {
                 
                 if(weakSelf.errorLabel) {
                     [weakSelf.errorLabel removeFromSuperview];
